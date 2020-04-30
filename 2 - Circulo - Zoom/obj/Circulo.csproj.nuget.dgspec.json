@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Git\\FURB\\computação-gráfica\\Circulo - Zoom\\Circulo.csproj": {}
+  },
+  "projects": {
+    "C:\\Git\\FURB\\computação-gráfica\\Circulo - Zoom\\Circulo.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Git\\FURB\\computação-gráfica\\Circulo - Zoom\\Circulo.csproj",
+        "projectName": "Circulo",
+        "projectPath": "C:\\Git\\FURB\\computação-gráfica\\Circulo - Zoom\\Circulo.csproj",
+        "packagesPath": "C:\\Users\\Marcelo\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\FURB\\computação-gráfica\\Circulo - Zoom\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Marcelo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.Win32.SystemEvents": {
+              "target": "Package",
+              "version": "[5.0.0-preview.2.20160.6, )"
+            },
+            "OpenTK.NetCore": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[5.0.0-preview.2.20160.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
