@@ -46,7 +46,7 @@ namespace gcgcg
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(-400, 400, -400, 400, -1, 1);
+            GL.Ortho(-300, 300, -300, 300, -1, 1);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -60,17 +60,17 @@ namespace gcgcg
             GL.LineWidth(3);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(300, 0);
+            GL.Vertex2(200, 0);
             GL.End();
             //Eixo Y
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(0, 300);
+            GL.Vertex2(0, 200);
             GL.End();
 
             //Circulo
-            Circulo.drawCircle(Color.Yellow, 3, 3, 150);
+            Circulo.drawCircle(Color.Yellow, 5, 5, 100);
 
             this.SwapBuffers();
         }

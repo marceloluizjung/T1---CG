@@ -27,7 +27,6 @@ namespace gcgcg
             return instanciaMundo;
         }
 
-        private CameraOrtho camera = new CameraOrtho();
         protected List<Objeto> objetosLista = new List<Objeto>();
         private ObjetoGeometria objetoSelecionado = null;
         private bool bBoxDesenhar = false;
@@ -40,17 +39,13 @@ namespace gcgcg
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(Color.Gray);
-            camera.xmin = -150;
-            camera.ymin = -150;
-            camera.xmax = 150;
-            camera.ymax = 150;
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, -1, 1);
+            GL.Ortho(-300, 300, -300, 300, -1, 1);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -64,40 +59,45 @@ namespace gcgcg
             GL.LineWidth(3);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(100, 0);
+            GL.Vertex2(200, 0);
             GL.End();
+
             //Eixo Y
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(0, 100);
+            GL.Vertex2(0, 200);
             GL.End();
 
             //Circulos
             Ponto4D center1 = new Ponto4D();
             center1.X = 0;
-            center1.Y = 50;
-            Circulo.drawCircle(Color.Black, 3, 5, 50, center1);
+            center1.Y = 100;
+            Circulo.drawCircle(Color.Black, 5, 5, 100, center1);
+            
             Ponto4D center2 = new Ponto4D();
-            center2.X = 50;
-            center2.Y = -50;
-            Circulo.drawCircle(Color.Black, 3, 5, 50, center2);
+            center2.X = 100;
+            center2.Y = -100;
+            Circulo.drawCircle(Color.Black, 5, 5, 100, center2);
+            
             Ponto4D center3 = new Ponto4D();
-            center3.X = -50;
-            center3.Y = -50;
-            Circulo.drawCircle(Color.Black, 3, 5, 50, center3);
+            center3.X = -100;
+            center3.Y = -100;
+            Circulo.drawCircle(Color.Black, 5, 5, 100, center3);
+
+
 
             //Triângulo
             Ponto4D ponto1 = new Ponto4D();
             ponto1.X = 0;
-            ponto1.Y = 50;
+            ponto1.Y = 100;
 
             Ponto4D ponto2 = new Ponto4D();
-            ponto2.X = 50;
-            ponto2.Y = -50;
+            ponto2.X = 100;
+            ponto2.Y = -100;
             Ponto4D ponto3 = new Ponto4D();
-            ponto3.X = -50;
-            ponto3.Y = -50;
+            ponto3.X = -100;
+            ponto3.Y = -100;
             SegReta.drawTriangle(ponto1, ponto2, ponto3, Color.Aqua, PrimitiveType.Lines);
 
             this.SwapBuffers();
@@ -116,44 +116,6 @@ namespace gcgcg
                 {
                     Console.WriteLine(objetosLista[i]);
                 }
-            }
-            else if (e.Key == Key.U)
-                bBoxDesenhar = !bBoxDesenhar;
-            else if (e.Key == Key.V)
-                mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
-            else if (e.Key == Key.C) //Cima
-            {
-                camera.ymin++;
-                camera.ymax++;
-            }
-            else if (e.Key == Key.B) //Baixo
-            {
-                camera.ymin--;
-                camera.ymax--;
-            }
-            else if (e.Key == Key.D) //Direita
-            {
-                camera.xmin--;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.E) //Esquerda
-            {
-                camera.xmin++;
-                camera.xmax++;
-            }
-            else if (e.Key == Key.I) //Zoom in
-            {
-                camera.ymin++;
-                camera.ymax--;
-                camera.xmin++;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.O) //Zoom Out
-            {
-                camera.ymin--;
-                camera.ymax++;
-                camera.xmin--;
-                camera.xmax++;
             }
             else
                 Console.WriteLine(" __ Tecla não implementada.");

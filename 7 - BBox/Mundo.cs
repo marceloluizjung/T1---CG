@@ -27,7 +27,6 @@ namespace gcgcg
             return instanciaMundo;
         }
 
-        private CameraOrtho camera = new CameraOrtho();
         protected List<Objeto> objetosLista = new List<Objeto>();
         private ObjetoGeometria objetoSelecionado = null;
         private bool bBoxDesenhar = false;
@@ -36,8 +35,6 @@ namespace gcgcg
         private Retangulo obj_Retangulo;
         private Ponto4D ponto4DBase = new Ponto4D();
 
-        private int size = 100;
-        private int rotationGrados = 45;
         private Color colorRetangulo;
         private Circulo circuloMaior;
         private Circulo circuloMenor;
@@ -49,12 +46,6 @@ namespace gcgcg
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(Color.Gray);
-            camera.xmin = -150;
-            camera.ymin = -150;
-            camera.xmax = 150;
-            camera.ymax = 150;
-            this.ponto4DBase.X = 0;
-            this.ponto4DBase.Y = 0;
             centerCirculoMenor = new Ponto4D(0, 0);
             this.circuloMaior = new Circulo(null, null, Color.Black, 3, 1, 100, new Ponto4D(0, 0), BeginMode.LineLoop);
             colorRetangulo = Color.Red;
@@ -64,7 +55,7 @@ namespace gcgcg
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, -1, 1);
+            GL.Ortho(-150, 150, -150, 150, -1, 1);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -122,65 +113,6 @@ namespace gcgcg
                 bBoxDesenhar = !bBoxDesenhar;
             else if (e.Key == Key.V)
                 mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
-            else if (e.Key == Key.C) //Cima
-            {
-                camera.ymin++;
-                camera.ymax++;
-            }
-            else if (e.Key == Key.B) //Baixo
-            {
-                camera.ymin--;
-                camera.ymax--;
-            }
-            else if (e.Key == Key.D) //Direita
-            {
-                camera.xmin--;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.E) //Esquerda
-            {
-                camera.xmin++;
-                camera.xmax++;
-            }
-            else if (e.Key == Key.I) //Zoom in
-            {
-                camera.ymin++;
-                camera.ymax--;
-                camera.xmin++;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.O) //Zoom Out
-            {
-                camera.ymin--;
-                camera.ymax++;
-                camera.xmin--;
-                camera.xmax++;
-            }
-            else if (e.Key == Key.W) //Direita
-            {
-                this.ponto4DBase.X++;
-            }
-            else if (e.Key == Key.Q) //Esquerda
-            {
-                this.ponto4DBase.X--;
-            }
-            else if (e.Key == Key.A) //Aumentar
-            {
-                this.size++;
-            }
-            else if (e.Key == Key.S) //Diminuir
-            {
-                this.size--;
-
-            }
-            else if (e.Key == Key.Z) //Girar Esquerda
-            {
-                this.rotationGrados++;
-            }
-            else if (e.Key == Key.X) //Girar Direita
-            {
-                this.rotationGrados--;
-            }
             else
                 Console.WriteLine(" __ Tecla não implementada.");
         }
@@ -188,7 +120,7 @@ namespace gcgcg
         //TODO: não está considerando o NDC
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
-            mouseX = e.Position.X; mouseY = 600 - e.Position.Y; // Inverti eixo Y
+            mouseX = e.Position.X; mouseY = 600 - e.Position.Y; // Inversao eixo Y
             if (mouseMoverPto && (objetoSelecionado != null))
             {
                 int xPointClick = mouseX >= 300 ? mouseX - 300 : (300 - mouseX) * -1;

@@ -27,7 +27,6 @@ namespace gcgcg
             return instanciaMundo;
         }
 
-        private CameraOrtho camera = new CameraOrtho();
         protected List<Objeto> objetosLista = new List<Objeto>();
         private ObjetoGeometria objetoSelecionado = null;
         private bool bBoxDesenhar = false;
@@ -42,10 +41,6 @@ namespace gcgcg
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(Color.Gray);
-            camera.xmin = -400;
-            camera.ymin = -400;
-            camera.xmax = 400;
-            camera.ymax = 400;
             this.beginMode = BeginMode.Points;
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -53,7 +48,7 @@ namespace gcgcg
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, -1, 1);
+            GL.Ortho(-400, 400, -400, 400, -1, 1);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -110,45 +105,7 @@ namespace gcgcg
                     Console.WriteLine(objetosLista[i]);
                 }
             }
-            else if (e.Key == Key.U)
-                bBoxDesenhar = !bBoxDesenhar;
-            else if (e.Key == Key.V)
-                mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
-            else if (e.Key == Key.C) //Cima
-            {
-                camera.ymin++;
-                camera.ymax++;
-            }
-            else if (e.Key == Key.B) //Baixo
-            {
-                camera.ymin--;
-                camera.ymax--;
-            }
-            else if (e.Key == Key.D) //Direita
-            {
-                camera.xmin--;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.E) //Esquerda
-            {
-                camera.xmin++;
-                camera.xmax++;
-            }
-            else if (e.Key == Key.I) //Zoom in
-            {
-                camera.ymin++;
-                camera.ymax--;
-                camera.xmin++;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.O) //Zoom Out
-            {
-                camera.ymin--;
-                camera.ymax++;
-                camera.xmin--;
-                camera.xmax++;
-            }
-            else if (e.Key == Key.Space) //Zoom Out
+            else if (e.Key == Key.Space) // Alterar
             {
                 this.keyControll++;
                 if (this.keyControll == 1)

@@ -27,7 +27,6 @@ namespace gcgcg
             return instanciaMundo;
         }
 
-        private CameraOrtho camera = new CameraOrtho();
         protected List<Objeto> objetosLista = new List<Objeto>();
         private ObjetoGeometria objetoSelecionado = null;
         private bool bBoxDesenhar = false;
@@ -44,10 +43,6 @@ namespace gcgcg
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(Color.Gray);
-            camera.xmin = -150;
-            camera.ymin = -150;
-            camera.xmax = 150;
-            camera.ymax = 150;
             this.ponto4DBase.X = 0;
             this.ponto4DBase.Y = 0;
         }
@@ -56,7 +51,7 @@ namespace gcgcg
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, -1, 1);
+            GL.Ortho(-200, 200, -200, 200, -1, 1);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -70,14 +65,14 @@ namespace gcgcg
             GL.LineWidth(3);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(100, 0);
+            GL.Vertex2(150, 0);
             GL.End();
 
             //Eixo Y
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(0, 100);
+            GL.Vertex2(0, 150);
             GL.End();
 
             //Sr. palito
@@ -100,44 +95,6 @@ namespace gcgcg
                     Console.WriteLine(objetosLista[i]);
                 }
             }
-            else if (e.Key == Key.U)
-                bBoxDesenhar = !bBoxDesenhar;
-            else if (e.Key == Key.V)
-                mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
-            else if (e.Key == Key.C) //Cima
-            {
-                camera.ymin++;
-                camera.ymax++;
-            }
-            else if (e.Key == Key.B) //Baixo
-            {
-                camera.ymin--;
-                camera.ymax--;
-            }
-            else if (e.Key == Key.D) //Direita
-            {
-                camera.xmin--;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.E) //Esquerda
-            {
-                camera.xmin++;
-                camera.xmax++;
-            }
-            else if (e.Key == Key.I) //Zoom in
-            {
-                camera.ymin++;
-                camera.ymax--;
-                camera.xmin++;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.O) //Zoom Out
-            {
-                camera.ymin--;
-                camera.ymax++;
-                camera.xmin--;
-                camera.xmax++;
-            }
             else if (e.Key == Key.W) //Direita
             {
                 this.ponto4DBase.X++;
@@ -146,11 +103,11 @@ namespace gcgcg
             {
                 this.ponto4DBase.X--;
             }
-            else if (e.Key == Key.A) //Aumentar
+            else if (e.Key == Key.S) //Aumentar
             {
                 this.size++;
             }
-            else if (e.Key == Key.S) //Diminuir
+            else if (e.Key == Key.A) //Diminuir
             {
                 this.size--;
 

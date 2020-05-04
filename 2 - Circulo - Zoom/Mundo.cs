@@ -40,10 +40,10 @@ namespace gcgcg
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(Color.Gray);
-            camera.xmin = -400;
-            camera.ymin = -400;
-            camera.xmax = 400;
-            camera.ymax = 400;
+            camera.xmin = -300;
+            camera.ymin = -300;
+            camera.xmax = 300;
+            camera.ymax = 300;
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
@@ -64,17 +64,17 @@ namespace gcgcg
             GL.LineWidth(3);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(300, 0);
+            GL.Vertex2(200, 0);
             GL.End();
             //Eixo Y
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(0, 300);
+            GL.Vertex2(0, 200);
             GL.End();
 
             //Circulo
-            Circulo.drawCircle(Color.Yellow, 3, 3, 150);
+            Circulo.drawCircle(Color.Yellow, 5, 5, 100);
 
             this.SwapBuffers();
         }
@@ -85,51 +85,39 @@ namespace gcgcg
                 Utilitario.AjudaTeclado();
             else if (e.Key == Key.Escape)
                 Exit();
-            else if (e.Key == Key.E)
+            else if (e.Key == Key.E) // Esquerda
             {
-                Console.WriteLine("--- Objetos / Pontos: ");
-                for (var i = 0; i < objetosLista.Count; i++)
-                {
-                    Console.WriteLine(objetosLista[i]);
-                }
+                camera.xmin +=2;
+                camera.xmax +=2;
             }
-            else if (e.Key == Key.O)
-                bBoxDesenhar = !bBoxDesenhar;
-            else if (e.Key == Key.V)
-                mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
+            else if (e.Key == Key.D) // Direita
+            {
+                camera.xmin -= 2;
+                camera.xmax -= 2;
+            } 
             else if (e.Key == Key.C) //Cima
             {
-                camera.ymin++;
-                camera.ymax++;
+                camera.ymin +=2;
+                camera.ymax +=2;
             }
             else if (e.Key == Key.B) //Baixo
             {
-                camera.ymin--;
-                camera.ymax--;
-            }
-            else if (e.Key == Key.D) //Direita
-            {
-                camera.xmin--;
-                camera.xmax--;
-            }
-            else if (e.Key == Key.W) //Esquerda
-            {
-                camera.xmin++;
-                camera.xmax++;
+                camera.ymin -= 2;
+                camera.ymax -= 2;
             }
             else if (e.Key == Key.I) //Zoom in
             {
-                camera.ymin++;
-                camera.ymax--;
-                camera.xmin++;
-                camera.xmax--;
+                camera.ymin +=2;
+                camera.ymax -= 2;
+                camera.xmin +=2;
+                camera.xmax -= 2;
             }
-            else if (e.Key == Key.U) //Zoom Out
+            else if (e.Key == Key.O) //Zoom Out
             {
-                camera.ymin--;
-                camera.ymax++;
-                camera.xmin--;
-                camera.xmax++;
+                camera.ymin -= 2;
+                camera.ymax +=2;
+                camera.xmin -= 2;
+                camera.xmax +=2;
             }
             else
                 Console.WriteLine(" __ Tecla não implementada.");
