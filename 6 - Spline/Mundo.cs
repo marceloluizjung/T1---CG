@@ -51,7 +51,7 @@ namespace gcgcg
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(-200, 200, -200, 200, -1, 1);
+            GL.Ortho(-400, 400, -400, 400, -1, 1);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -65,19 +65,17 @@ namespace gcgcg
             GL.LineWidth(3);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(150, 0);
+            GL.Vertex2(300, 0);
             GL.End();
 
             //Eixo Y
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex2(0, 0);
-            GL.Vertex2(0, 150);
+            GL.Vertex2(0, 300);
             GL.End();
 
-            //Sr. palito
-            SegReta.dynamicLine(this.ponto4DBase, Color.Black, this.size, this.rotationGrados);
-
+            
             this.SwapBuffers();
         }
 

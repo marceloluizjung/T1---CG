@@ -27,7 +27,7 @@ namespace gcgcg
             return instanciaMundo;
         }
 
-        private CameraOrtho camera = new CameraOrtho();
+        private Camera camera = new Camera();
         protected List<Objeto> objetosLista = new List<Objeto>();
         private ObjetoGeometria objetoSelecionado = null;
         private bool bBoxDesenhar = false;
@@ -40,17 +40,14 @@ namespace gcgcg
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(Color.Gray);
-            camera.xmin = -300;
-            camera.ymin = -300;
-            camera.xmax = 300;
-            camera.ymax = 300;
+            camera.setInicial(-300, -300, 300, 300);
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(camera.xmin, camera.xmax, camera.ymin, camera.ymax, -1, 1);
+            GL.Ortho(camera.getXmin(), camera.getXmax(), camera.getYmin(), camera.getYmax(), -1, 1);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -87,37 +84,27 @@ namespace gcgcg
                 Exit();
             else if (e.Key == Key.E) // Esquerda
             {
-                camera.xmin +=2;
-                camera.xmax +=2;
+                camera.goEsquerda();
             }
             else if (e.Key == Key.D) // Direita
             {
-                camera.xmin -= 2;
-                camera.xmax -= 2;
+                camera.goDireita();  
             } 
             else if (e.Key == Key.C) //Cima
             {
-                camera.ymin +=2;
-                camera.ymax +=2;
+                camera.goCima();
             }
             else if (e.Key == Key.B) //Baixo
             {
-                camera.ymin -= 2;
-                camera.ymax -= 2;
+                camera.goBaixo();
             }
             else if (e.Key == Key.I) //Zoom in
             {
-                camera.ymin +=2;
-                camera.ymax -= 2;
-                camera.xmin +=2;
-                camera.xmax -= 2;
+                camera.goZoomIn();
             }
             else if (e.Key == Key.O) //Zoom Out
             {
-                camera.ymin -= 2;
-                camera.ymax +=2;
-                camera.xmin -= 2;
-                camera.xmax +=2;
+                camera.goZoomOut();
             }
             else
                 Console.WriteLine(" __ Tecla não implementada.");
