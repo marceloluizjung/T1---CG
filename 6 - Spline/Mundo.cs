@@ -34,17 +34,29 @@ namespace gcgcg
         private bool mouseMoverPto = false;
         private Retangulo obj_Retangulo;
         private Ponto4D ponto4DBase = new Ponto4D();
+        private Spline spline;
 
-        private int size = 100;
-        private int rotationGrados = 45;
+        private Ponto4D pontoEsq;
+        private Ponto4D pontoDir;
+
+        private Color colorRetangulo;
+        private Circulo circuloMaior;
+        private Circulo circuloMenor;
+        private Retangulo retangulo;
+        private Ponto4D centerCirculoMenor;
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             Console.WriteLine(" --- Ajuda / Teclas: ");
             Console.WriteLine(" [  H     ] mostra teclas usadas. ");
             GL.ClearColor(Color.Gray);
-            this.ponto4DBase.X = 0;
-            this.ponto4DBase.Y = 0;
+            centerCirculoMenor = new Ponto4D(0, 0);
+            this.circuloMaior = new Circulo(null, null, Color.Black, 3, 1, 100, new Ponto4D(0, 0), BeginMode.LineLoop);
+            colorRetangulo = Color.Red;
+
+            this.pontoEsq = new Ponto4D(-100, 0);
+            this.pontoDir = new Ponto4D(100, 0);
+            this.spline = new Spline(null, null, pontoEsq, pontoDir, 2, Color.Yellow);
         }
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
@@ -75,7 +87,8 @@ namespace gcgcg
             GL.Vertex2(0, 300);
             GL.End();
 
-            
+            this.spline.Desenhar();
+
             this.SwapBuffers();
         }
 
@@ -93,30 +106,49 @@ namespace gcgcg
                     Console.WriteLine(objetosLista[i]);
                 }
             }
-            else if (e.Key == Key.W) //Direita
+            else if (e.Key == Key.U)
+                bBoxDesenhar = !bBoxDesenhar;
+            else if (e.Key == Key.V)
+                mouseMoverPto = !mouseMoverPto;   //TODO: falta atualizar a BBox do objeto
+            else if (e.Key == Key.E)
             {
-                this.ponto4DBase.X++;
+                this.spline.goEsquerda();
             }
-            else if (e.Key == Key.Q) //Esquerda
+            else if (e.Key == Key.D)
             {
-                this.ponto4DBase.X--;
+                this.spline.goDireita();
             }
-            else if (e.Key == Key.S) //Aumentar
+            else if (e.Key == Key.C)
             {
-                this.size++;
+                this.spline.goCima();
             }
-            else if (e.Key == Key.A) //Diminuir
+            else if (e.Key == Key.B)
             {
-                this.size--;
-
+                this.spline.goBaixo();
             }
-            else if (e.Key == Key.Z) //Girar Esquerda
+            else if (e.Key == Key.KeypadPlus)
             {
-                this.rotationGrados++;
+                this.spline.addPontos();
             }
-            else if (e.Key == Key.X) //Girar Direita
+            else if (e.Key == Key.KeypadMinus)
             {
-                this.rotationGrados--;
+                this.spline.subPontos();
+            }
+            else if (e.Key == Key.Keypad1)
+            {
+                this.spline.changePonto(0);
+            }
+            else if (e.Key == Key.Keypad2)
+            {
+                this.spline.changePonto(1);
+            }
+            else if (e.Key == Key.Keypad3)
+            {
+                this.spline.changePonto(2);
+            }
+            else if (e.Key == Key.Keypad4)
+            {
+                this.spline.changePonto(3);
             }
             else
                 Console.WriteLine(" __ Tecla não implementada.");
@@ -125,12 +157,12 @@ namespace gcgcg
         //TODO: não está considerando o NDC
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
-            mouseX = e.Position.X; mouseY = 600 - e.Position.Y; // Inverti eixo Y
-            if (mouseMoverPto && (objetoSelecionado != null))
-            {
-                objetoSelecionado.PontosUltimo().X = mouseX;
-                objetoSelecionado.PontosUltimo().Y = mouseY;
-            }
+            
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+
         }
 
 #if CG_Gizmo
